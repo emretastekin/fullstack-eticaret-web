@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mcCPjJ9UYB4=",
+  "dgSpecHash": "qW9igD5VMgY=",
   "success": true,
-  "projectFilePath": "D:\\Yedek\\.NET 9 React FullStack Kursu\\e-commerce\\API\\API.csproj",
+  "projectFilePath": "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\emret\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\emret\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.0\\microsoft.aspnetcore.openapi.9.0.0.nupkg.sha512",

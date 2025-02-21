@@ -1,5 +1,7 @@
+using API.Data;
 using API.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -7,47 +9,40 @@ namespace API.Controllers;
 [Route("/api/[controller]")]  //api/products
 public class ProductsController:ControllerBase 
 {
+    private readonly DataContext _context;
+
+    public ProductsController(DataContext context)
+    {
+        _context = context;
+    }
+
 
     [HttpGet]
-    public IActionResult GetProducts()
+    public async Task<IActionResult> GetProducts()
     {
-        return Ok(new List<Product>() {
-            new Product
-            {
-                Id=1,
-                Name="IPhone 15",
-                Description="Telefon Açıklaması",
-                ImageUrl="1.jpg",
-                Price=70000,
-                IsActive=true,
-                Stock=100 
-            },
-            new Product
-            {
-                Id=1,
-                Name="IPhone 16",
-                Description="Telefon Açıklaması",
-                ImageUrl="1.jpg",
-                Price=70000,
-                IsActive=true,
-                Stock=100 
-            }
-        });
+        var products = await _context.Products.ToListAsync();
+        return Ok(products);
     }
 
     // api/products/1
     [HttpGet("{id}")]
-    public IActionResult GetProduct(int id)
+    public async Task<IActionResult> GetProduct(int? id)
     {
-        return Ok(new Product {
-             Id=1,
-             Name="IPhone 15",
-             Description="Telefon Açıklaması",
-             ImageUrl="1.jpg",
-             Price=70000,
-             IsActive=true,
-             Stock=100 
-        });
+        if(id == null)
+        {
+            return NotFound();
+        }
+
+        //var product = await _context.Products.FirstOrDefaultAsync(i => i.Id == id);
+        var product = await _context.Products.FindAsync(id);
+        
+        if(product == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(product);
+
     }
 
 

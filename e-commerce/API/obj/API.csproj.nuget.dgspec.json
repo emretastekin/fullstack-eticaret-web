@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Yedek\\.NET 9 React FullStack Kursu\\e-commerce\\API\\API.csproj": {}
+    "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\API.csproj": {}
   },
   "projects": {
-    "D:\\Yedek\\.NET 9 React FullStack Kursu\\e-commerce\\API\\API.csproj": {
+    "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Yedek\\.NET 9 React FullStack Kursu\\e-commerce\\API\\API.csproj",
+        "projectUniqueName": "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\Yedek\\.NET 9 React FullStack Kursu\\e-commerce\\API\\API.csproj",
+        "projectPath": "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\API.csproj",
         "packagesPath": "C:\\Users\\emret\\.nuget\\packages\\",
-        "outputPath": "D:\\Yedek\\.NET 9 React FullStack Kursu\\e-commerce\\API\\obj\\",
+        "outputPath": "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\VS SDK\\NuGetPackages"
