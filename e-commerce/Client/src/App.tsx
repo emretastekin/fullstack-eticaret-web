@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 function App() {
@@ -19,14 +19,23 @@ function Header() {
 function ProductList() {
 
   const [products, setProducts] = useState([
-    { id:1 ,name:"product1", price:"1000", is_active: true },
-    { id:2 ,name:"product2", price:"2000", is_active: false },
-    { id:3 ,name:"product3", price:"3000", is_active: true },
+    { id:1 ,name:"product1", price:"1000", isActive: true },
+    { id:2 ,name:"product2", price:"2000", isActive: false },
+    { id:3 ,name:"product3", price:"3000", isActive: true },
   ]);
 
+  useEffect(() => {
+    fetch("http://localhost:5000/api/products")
+    .then(response => response.json())
+    .then(data => setProducts(data));
+  }, [])
+
+
   function addProduct(){
-    setProducts([...products, { id:Date.now() ,name:"product4", price:"4000", is_active: true }])
+    setProducts([...products, { id:Date.now() ,name:"product4", price:"4000", isActive: true }])
   }
+
+  console.log("render...")
 
   return (
     <div>
@@ -45,7 +54,7 @@ function ProductList() {
 function Product(props: any) {
   return(
     <>
-    { props.product.is_active ? (
+    { props.product.isActive ? (
       <div>
         <h3>{props.product.name}</h3>
         <p>{props.product.price}</p>
