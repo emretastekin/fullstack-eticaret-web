@@ -1,3 +1,8 @@
+const products = [
+  { name:"product1", price:"1000" },
+  { name:"product2", price:"2000" },
+  { name:"product3", price:"3000" },
+];
 
 function App() {
   return (
@@ -18,17 +23,19 @@ function ProductList() {
   return (
     <div>
       <h2>ProductList</h2>
-      <Product />
-      <Product />
-      <Product />
-      <Product />
+      <Product product={products[0]} />
+      <Product product={products[1]}/>
+      <Product product={products[2]}/>
     </div>
   );
 }
 
-function Product() {
+function Product(props: any) {
   return(
-    <h3>Product</h3>
+    <div>
+      <h3>{props.product.name}</h3>
+      <p>{props.product.price}</p>
+    </div>
   );
 }
 
