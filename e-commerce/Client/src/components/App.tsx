@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IProduct } from "../model/IProduct";
 import Header from "./Header";
 import ProductList from "./ProductList";
+import ButtonUsage from "./ButtonUsage";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
     <>
       <Header products={products} />
       <ProductList products={products} addProduct={addProduct} />
+      <ButtonUsage />
     </>
   )
 }
