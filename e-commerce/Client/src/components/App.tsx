@@ -3,6 +3,7 @@ import { IProduct } from "../model/IProduct";
 import Header from "./Header";
 import ProductList from "./ProductList";
 import ButtonUsage from "./ButtonUsage";
+import { Container, CssBaseline } from "@mui/material";
 
 
 function App() {
@@ -28,9 +29,11 @@ function App() {
 
   return (
     <>
-      <Header products={products} />
-      <ProductList products={products} addProduct={addProduct} />
-      <ButtonUsage />
+      <CssBaseline />
+      <Header />
+      <Container>
+        <ProductList products={products} addProduct={addProduct} />
+      </Container>
     </>
   )
 }
