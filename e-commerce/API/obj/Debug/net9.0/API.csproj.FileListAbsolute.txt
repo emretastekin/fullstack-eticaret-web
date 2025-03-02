@@ -291,3 +291,4 @@ D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\obj\Debug\net
 D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\obj\Debug\net9.0\API.pdb
 D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\obj\Debug\net9.0\API.genruntimeconfig.cache
 D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\obj\Debug\net9.0\ref\API.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\API.staticwebassets.runtime.json
