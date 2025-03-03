@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\wwwroot\\images\\1.jpg",
+      "PackagePath": "staticwebassets\\images\\1.jpg"
+    },
+    {
       "Id": "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\wwwroot\\images\\2.jpg",
       "PackagePath": "staticwebassets\\images\\2.jpg"
     },
