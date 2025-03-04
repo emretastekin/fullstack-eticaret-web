@@ -26,7 +26,7 @@ export default function Header() {
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography variant="h6">E-Commerce</Typography>
-            <Stack direction={"row"}>
+            <Stack direction="row">
               { links.map(link =>
                  <Button component={NavLink} sx={navstyles} to={link.to}>{link.title}</Button>
                  ) }
