@@ -5,6 +5,7 @@ import { IProduct } from "../../model/IProduct";
 import { Link } from "react-router";
 import { useState } from "react";
 import requests from "../../api/requests";
+import { LoadingButton } from "@mui/lab";
 
 interface Props {
     product: IProduct;
@@ -35,8 +36,8 @@ export default function Product({product}: Props) {
             {(product.price / 100).toFixed(2)} ₺
           </Typography>
         </CardContent>
-        <CardActions>
-          <Button variant="outlined" size="small" startIcon={<AddShoppingCart/>} color="success" onClick={() => handleAddItem(product.id)}>Add to cart</Button>
+        <CardActions>          
+          <LoadingButton startIcon={<AddShoppingCart/>} loadingPosition="start" variant="outlined" size="small" loading={loading} onClick={() => handleAddItem(product.id)} >Sepete Ekle</LoadingButton>
           <Button component={Link} to={`/catalog/${product.id}`} variant="outlined" size="small" startIcon={<SearchIcon />} color="primary" >View</Button>
         </CardActions>
       </Card>
