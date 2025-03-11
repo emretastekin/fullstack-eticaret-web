@@ -1,4 +1,5 @@
 using API.Data;
+using API.DTO;
 using API.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,12 +17,10 @@ public class CartController: ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<Cart>> GetCart()
+    public async Task<ActionResult<CartDTO>> GetCart()
     {
-        var cart = await GetOrCreate();
+        return CartToDTO(await GetOrCreate());
         
-        return cart;
-
     }
 
     [HttpPost]
@@ -41,10 +40,28 @@ public class CartController: ControllerBase
         var result = await _context.SaveChangesAsync() > 0;
 
         if(result)
-            return CreatedAtAction(nameof(GetCart), cart);
+            return CreatedAtAction(nameof(GetCart), CartToDTO(cart));
 
         return BadRequest(new ProblemDetails{ Title= "The product can not added to cart" });
     
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteItemFromCart(int productId, int quantity)
+    {
+        var cart = await GetOrCreate();
+
+        cart.DeleteItem(productId, quantity);
+
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if(result)
+        {
+            return Ok();
+        }
+
+        return BadRequest(new ProblemDetails{ Title = "Problem removing item from the cart" });
+
     }
 
 
@@ -78,38 +95,21 @@ public class CartController: ControllerBase
 
     }
 
-
-    [HttpDelete]
-    public async Task<ActionResult> DeleteItemFromCart(int productId, int quantity)
+    private CartDTO CartToDTO(Cart cart)
     {
-        var cart = await GetOrCreate();
-
-        cart.DeleteItem(productId, quantity);
-
-        var result = await _context.SaveChangesAsync() > 0;
-
-        if(result)
+        return new CartDTO
         {
-            return Ok();
-        }
-
-        return BadRequest(new ProblemDetails{ Title = "Problem removing item from the cart" });
-
+            CartId = cart.CartId,
+            CustomerId = cart.CustomerId,
+            CartItems = cart.CartItems.Select(item => new CartItemDTO {
+                ProductId = item.ProductId,
+                Name = item.Product.Name,
+                Price = item.Product.Price,
+                ImageUrl = item.Product.ImageUrl,
+                Quantity = item.Quantity
+            }).ToList()
+        };
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
