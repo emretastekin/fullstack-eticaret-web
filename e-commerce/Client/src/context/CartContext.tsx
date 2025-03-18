@@ -1,6 +1,5 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { Cart } from "../model/ICart";
-import { PropsOf } from "@emotion/react";
 
 
 interface CartContextValue{
