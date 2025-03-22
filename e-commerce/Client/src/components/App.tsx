@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import requests from "../api/requests";
 import { useAppDispatch } from "../hooks/hooks";
-import { setCart } from "../pages/cart/cartSlice";
+import { setCart } from "../features/cart/cartSlice";
 
 
 function App() {
