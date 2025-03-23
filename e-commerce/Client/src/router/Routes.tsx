@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router";
-import App from "../components/App";
+import App from "../layout/App";
 import HomePage from "../features/HomePage";
 import AboutPage from "../features/AboutPage";
 import ContactPage from "../features/ContactPage";
