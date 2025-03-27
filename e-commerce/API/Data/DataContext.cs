@@ -1,9 +1,11 @@
 using API.Entity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
 
-public class DataContext(DbContextOptions options) : DbContext(options)
+public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, AppRole, string>(options)
 {
     public DbSet<Product> Products { get; set; }
 
