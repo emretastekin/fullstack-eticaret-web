@@ -1,6 +1,7 @@
 using API.Data;
 using API.Entity;
 using API.Middleware;
+using API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,7 @@ builder.Services.Configure<IdentityOptions>(options => {
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 

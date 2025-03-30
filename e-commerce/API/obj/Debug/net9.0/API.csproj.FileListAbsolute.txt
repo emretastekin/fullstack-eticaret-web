@@ -293,3 +293,11 @@ D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\obj\Debug\net
 D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\obj\Debug\net9.0\ref\API.dll
 D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\API.staticwebassets.runtime.json
 D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+D:\Yedek\GitHub\GitHub Codes\fullstack-eticaret-web\e-commerce\API\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
