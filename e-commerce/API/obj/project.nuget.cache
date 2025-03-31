@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "OqDMaQIuoUA=",
+  "dgSpecHash": "k8HsgVScA0U=",
   "success": true,
   "projectFilePath": "D:\\Yedek\\GitHub\\GitHub Codes\\fullstack-eticaret-web\\e-commerce\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -47,6 +47,7 @@
     "C:\\Users\\emret\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.3.0\\microsoft.identitymodel.tokens.8.3.0.nupkg.sha512",
     "C:\\Users\\emret\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512",
     "C:\\Users\\emret\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
+    "C:\\Users\\emret\\.nuget\\packages\\scalar.aspnetcore\\1.2.56\\scalar.aspnetcore.1.2.56.nupkg.sha512",
     "C:\\Users\\emret\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.10\\sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\emret\\.nuget\\packages\\sqlitepclraw.core\\2.1.10\\sqlitepclraw.core.2.1.10.nupkg.sha512",
     "C:\\Users\\emret\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.10\\sqlitepclraw.lib.e_sqlite3.2.1.10.nupkg.sha512",

@@ -18,7 +18,6 @@ public class CartController: ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<ActionResult<CartDTO>> GetCart()
     {
         return CartToDTO(await GetOrCreate());
