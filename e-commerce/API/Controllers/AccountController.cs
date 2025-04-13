@@ -27,7 +27,7 @@ public class AccountController:ControllerBase
 
         if(user == null)
         {
-            return BadRequest(new {message = "username hatalı"});
+            return BadRequest(new ProblemDetails {Title = "username hatalı"});
         }
 
         var result = await _userManager.CheckPasswordAsync(user, model.Password);
