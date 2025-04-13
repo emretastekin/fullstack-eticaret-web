@@ -1,5 +1,5 @@
 import { ShoppingCart } from "@mui/icons-material";
-import { AppBar, Badge, Box, Button, IconButton, Stack, Toolbar, tooltipClasses, Typography } from "@mui/material";
+import { AppBar, Badge, Box, Button, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import { Link, NavLink } from "react-router";
 import { useAppSelector } from "../hooks/hooks";
 
@@ -9,6 +9,11 @@ const links = [
   { title: "About", to: "/about" },
   { title: "Contact", to: "/contact" },
   { title: "Error", to: "/error" },
+]
+
+const authLinks = [
+  { title: "Login", to:"/login" },
+  { title: "Register", to:"/register" }
 ]
 
 const navstyles = {
@@ -40,12 +45,18 @@ export default function Header() {
             </Stack>
           </Box>
 
-          <Box>
+          <Box sx={{ display: "flex", alignItems: "center"}}>
               <IconButton component={Link} to="/cart" size="large" edge="start" color="inherit" >
                 <Badge badgeContent={itemCount} color="secondary">
                   <ShoppingCart />
                 </Badge>
               </IconButton>
+
+              <Stack direction="row">
+              { authLinks.map(link =>
+                 <Button key={link.to} component={NavLink} sx={navstyles} to={link.to}>{link.title}</Button>
+                 ) }
+              </Stack>
           </Box>
 
         </Toolbar>
