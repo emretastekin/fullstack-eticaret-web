@@ -1,11 +1,16 @@
 import { LockOutlined } from "@mui/icons-material";
 import { Avatar, Box, Container, Paper, TextField, Typography } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
-import requests from "../../api/requests";
 import { LoadingButton } from "@mui/lab";
+import { loginUser } from "./accountSlice";
+import { useAppDispatch } from "../../hooks/hooks";
+import { useNavigate } from "react-router";
 
 export default function LoginPage()
 {
+
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const {register, handleSubmit, formState: {errors, isSubmitting, isValid}} = useForm({
         defaultValues: {
@@ -16,7 +21,8 @@ export default function LoginPage()
 
 
     async function submitForm(data: FieldValues) {
-         await requests.Account.login(data);
+        await dispatch(loginUser(data));
+        navigate("/catalog");
     }
 
 
