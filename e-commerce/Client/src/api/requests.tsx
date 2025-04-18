@@ -1,9 +1,20 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { router } from "../router/Routes";
+import { store } from "../store/store";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
 axios.defaults.withCredentials = true;
+
+
+axios.interceptors.request.use(request => {
+
+    const token = store.getState().account.user?.token;
+    if(token)
+        request.headers.Authorization = `Bearer ${token}`;
+
+    return request;
+})
 
 
 axios.interceptors.response.use(response => {
@@ -41,6 +52,10 @@ axios.interceptors.response.use(response => {
     return Promise.reject(error.response);
 })
 
+
+ 
+
+
 const queries = {
     get: (url: string) => axios.get(url).then((response: AxiosResponse) => response.data),
     post: (url: string, body: {}) => axios.post(url, body).then((response: AxiosResponse) => response.data),
@@ -72,6 +87,7 @@ const Cart = {
 const Account = {
     login: (formData: any) => queries.post("account/login", formData),
     register: (formData: any) => queries.post("account/register", formData),
+    getUser: () => queries.get("account/getuser")
 }
 
 const requests = {
