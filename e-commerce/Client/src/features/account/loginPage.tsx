@@ -3,8 +3,8 @@ import { Avatar, Box, Container, Paper, TextField, Typography } from "@mui/mater
 import { FieldValues, useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import { loginUser } from "./accountSlice";
-import { useAppDispatch } from "../../hooks/hooks";
 import { useNavigate } from "react-router";
+import { useAppDispatch } from "../../store/store";
 
 export default function LoginPage()
 {
@@ -21,8 +21,15 @@ export default function LoginPage()
 
 
     async function submitForm(data: FieldValues) {
-        await dispatch(loginUser(data));
-        navigate("/catalog");
+        const resultAction = await dispatch(loginUser(data));
+
+        if(loginUser.fulfilled.match(resultAction))
+        {
+            navigate("/catalog");
+
+        }else{
+            console.log("Giriş başarısız");
+        }
     }
 
 

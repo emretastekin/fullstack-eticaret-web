@@ -5,8 +5,8 @@ import { IProduct } from "../../model/IProduct";
 import { Link } from "react-router";
 import { LoadingButton } from "@mui/lab";
 import { currencyTRY } from "../../utils/formatCurrency";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { addItemToCart } from "../cart/cartSlice";
+import { useAppSelector, useAppDispatch } from "../../store/store";
 
 interface Props {
     product: IProduct;
