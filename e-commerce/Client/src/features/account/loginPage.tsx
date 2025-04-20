@@ -5,6 +5,8 @@ import { LoadingButton } from "@mui/lab";
 import { loginUser } from "./accountSlice";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from "../../store/store";
+import { toast } from "react-toastify";
+import requests from "../../api/requests";
 
 export default function LoginPage()
 {
@@ -21,15 +23,15 @@ export default function LoginPage()
 
 
     async function submitForm(data: FieldValues) {
-        const resultAction = await dispatch(loginUser(data));
+        await dispatch(loginUser(data));
 
-        if(loginUser.fulfilled.match(resultAction))
-        {
-            navigate("/catalog");
-
-        }else{
-            console.log("Giriş başarısız");
-        }
+        requests.Account.login(data)
+            .then(() => {
+                toast.success("logged in successfully");
+                navigate("/catalog")
+            }).catch(result => {
+                console.log(result);
+            });
     }
 
 
