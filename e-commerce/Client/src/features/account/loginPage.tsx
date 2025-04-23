@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { useAppDispatch } from "../../store/store";
 import { toast } from "react-toastify";
 import requests from "../../api/requests";
+import { getCart } from "../cart/cartSlice";
 
 export default function LoginPage()
 {
@@ -24,6 +25,7 @@ export default function LoginPage()
 
     async function submitForm(data: FieldValues) {
         await dispatch(loginUser(data));
+        await dispatch(getCart());
 
         requests.Account.login(data)
             .then(() => {
