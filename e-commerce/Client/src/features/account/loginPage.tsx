@@ -3,7 +3,7 @@ import { Avatar, Box, Container, Paper, TextField, Typography } from "@mui/mater
 import { FieldValues, useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 import { loginUser } from "./accountSlice";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useAppDispatch } from "../../store/store";
 import { toast } from "react-toastify";
 import requests from "../../api/requests";
@@ -14,6 +14,7 @@ export default function LoginPage()
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const {register, handleSubmit, formState: {errors, isSubmitting, isValid}} = useForm({
         defaultValues: {
@@ -30,7 +31,7 @@ export default function LoginPage()
         requests.Account.login(data)
             .then(() => {
                 toast.success("logged in successfully");
-                navigate("/catalog")
+                navigate(location.state?.from || "/catalog")
             }).catch(result => {
                 console.log(result);
             });
