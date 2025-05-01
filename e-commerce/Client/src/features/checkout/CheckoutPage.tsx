@@ -1,15 +1,15 @@
-import { ChevronLeftRounded, ChevronRightRounded, Info } from "@mui/icons-material";
+import { ChevronLeftRounded, ChevronRightRounded } from "@mui/icons-material";
 import { Box, Button, Grid2, Paper, Step, StepLabel, Stepper } from "@mui/material";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
-import InfoForm from "./Infoo";
 import Infoo from "./Infoo";
 import { useState } from "react";
+import { FieldValue, FieldValues, FormProvider, useForm } from "react-hook-form";
 
 
 
-const steps = ["Teslimat Bilgileri", "Ödeme", "Sipariş"];
+const steps = ["Teslimat Bilgileri", "Ödeme", "Sipariş Özeti"];
 
 function getStepContent(step: number)
 {
@@ -30,8 +30,10 @@ export default function CheckoutPage()
 {
 
     const [activeStep, setActiveStep] = useState(0);
+    const methods = useForm();
 
-    function handleNext(){
+    function handleNext(data: FieldValues){
+        console.log(data);
         setActiveStep(activeStep + 1);
     }
 
@@ -40,55 +42,62 @@ export default function CheckoutPage()
     }
 
     return (
-        <Paper>
-            <Grid2 container sx={{p:4}} spacing={4}>
-                <Grid2 size={4}>
-                    <Infoo />
-                </Grid2>
-                <Grid2 size={8}>
-                    <Box>
-                        <Stepper activeStep={activeStep} sx={{height: 40}} >
-                            { steps.map((label) => (
-                                <Step key={label}>
-                                    <StepLabel>{label}</StepLabel>
-                                </Step>
-                            ))}
-                        </Stepper>
-                    </Box>
-                    <Box>
-                        {activeStep === steps.length ? (
-                            <h2>Sipariş Tamamlandı</h2>
-                        ) : (
-                            <>
-                            {getStepContent(activeStep)}
-                            <Box>
-                                <Box sx={
-                                    [
-                                        {
-                                            display: "flex",
-                                        },
-                                        activeStep !== 0
-                                            ? {justifyContent: "space-between"}
-                                            : {justifyContent: "flex-end"}
-                                    ]
-                                }>
-                                    {
-                                        activeStep !== 0 &&
-                                            <Button startIcon={<ChevronLeftRounded />} variant="contained" 
-                                            onClick={handlePrevious}>Geri</Button>
-                                    }
+        <FormProvider {...methods}> 
+            <Paper>
+                <Grid2 container  spacing={4}>
+                    <Grid2 size={4} sx={{
+                        borderRight: "1px solid",
+                        borderColor: "divider",
+                        p:3
+                    }}>
+                        <Infoo />
+                    </Grid2>
+                    <Grid2 size={8} sx={{p:3}}>
+                        <Box>
+                            <Stepper activeStep={activeStep} sx={{height: 40, mb: 4}} >
+                                { steps.map((label) => (
+                                    <Step key={label}>
+                                        <StepLabel>{label}</StepLabel>
+                                    </Step>
+                                ))}
+                            </Stepper>
+                        </Box>
+                        <Box>
+                            {activeStep === steps.length ? (
+                                <h2>Sipariş Tamamlandı</h2>
+                            ) : (
+                                <form onSubmit={methods.handleSubmit(handleNext)}>
+                                    {getStepContent(activeStep)}
+                                    <Box>
+                                        <Box sx={
+                                            [
+                                                {
+                                                    display: "flex",
+                                                },
+                                                activeStep !== 0
+                                                    ? {justifyContent: "space-between"}
+                                                    : {justifyContent: "flex-end"}
+                                            ]
+                                        }>
+                                            {
+                                                activeStep !== 0 &&
+                                                    <Button startIcon={<ChevronLeftRounded />} variant="contained" 
+                                                    onClick={handlePrevious}>Geri</Button>
+                                            }
 
-                                    
-                                    <Button startIcon={<ChevronRightRounded />} variant="contained" 
-                                        onClick={handleNext}>İleri</Button>
-                                </Box>
-                            </Box>
-                            </>
-                        )}
-                        
-                    </Box>
+                                            
+                                            <Button 
+                                                type="submit"
+                                                startIcon={<ChevronRightRounded />} variant="contained">İleri</Button>
+                                        </Box>
+                                    </Box>
+                                </form>
+                            )}
+                            
+                        </Box>
+                    </Grid2>
                 </Grid2>
-            </Grid2>
-        </Paper>
+            </Paper>
+        </FormProvider>
     );
 }
