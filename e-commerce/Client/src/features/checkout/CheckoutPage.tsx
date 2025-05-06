@@ -6,6 +6,10 @@ import Review from "./Review";
 import Infoo from "./Infoo";
 import { useState } from "react";
 import { FieldValue, FieldValues, FormProvider, useForm } from "react-hook-form";
+import requests from "../../api/requests";
+import { useAppDispatch } from "../../store/store";
+import { clearCart } from "../cart/cartSlice";
+import { LoadingButton } from "@mui/lab";
 
 
 
@@ -31,10 +35,31 @@ export default function CheckoutPage()
 
     const [activeStep, setActiveStep] = useState(0);
     const methods = useForm();
+    const [orderId, setOrderId] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const dispatch = useAppDispatch();
 
-    function handleNext(data: FieldValues){
-        console.log(data);
-        setActiveStep(activeStep + 1);
+    async function handleNext(data: FieldValues){
+        
+        if(activeStep === 2)
+        {
+            setLoading(true);
+            try
+            {
+                setOrderId(await requests.Order.createOrder(data));
+                setActiveStep(activeStep + 1); 
+                dispatch(clearCart());
+                setLoading(false);
+            }
+            catch(error: any) {
+                console.log(error);
+                setLoading(false);
+            }
+
+        }else
+        {
+            setActiveStep(activeStep + 1);
+        }
     }
 
     function handlePrevious(){
@@ -45,14 +70,17 @@ export default function CheckoutPage()
         <FormProvider {...methods}> 
             <Paper>
                 <Grid2 container  spacing={4}>
-                    <Grid2 size={4} sx={{
-                        borderRight: "1px solid",
-                        borderColor: "divider",
-                        p:3
-                    }}>
-                        <Infoo />
-                    </Grid2>
-                    <Grid2 size={8} sx={{p:3}}>
+                    {activeStep !== steps.length && (
+                        <Grid2 size={4} sx={{
+                            borderRight: "1px solid",
+                            borderColor: "divider",
+                            p:3
+                        }}>
+                            <Infoo />
+                        </Grid2>
+                    )}
+                    
+                    <Grid2 size={activeStep !== steps.length ? 8 : 12} sx={{p:3}}>
                         <Box>
                             <Stepper activeStep={activeStep} sx={{height: 40, mb: 4}} >
                                 { steps.map((label) => (
@@ -68,7 +96,7 @@ export default function CheckoutPage()
                                     <Typography variant="h1">📦</Typography>
                                     <Typography variant="h5">Teşekkür ederiz. Siparişinizi aldık.</Typography>
                                     <Typography variant="body1" sx={{color: "text.secondary"}}>
-                                        Sipariş Numaranız <strong>#1234</strong>. Sipariş onaylandığında size bir eposta göndereceğiz.
+                                        Sipariş Numaranız <strong>#{orderId}</strong>. Sipariş onaylandığında size bir eposta göndereceğiz.
                                     </Typography>
                                     <Button sx={{alignSelf: "start", width: {xs: "100%", sm: "auto"}}} variant="contained">Siparişleri Listele</Button>
                                 </Stack>
@@ -93,9 +121,12 @@ export default function CheckoutPage()
                                             }
 
                                             
-                                            <Button 
+                                            <LoadingButton 
                                                 type="submit"
-                                                startIcon={<ChevronRightRounded />} variant="contained">İleri</Button>
+                                                loading={loading}
+                                                startIcon={<ChevronRightRounded />} variant="contained">
+                                                    {activeStep == 2 ? "Siparişi Tamamla" : "Devam"}
+                                                </LoadingButton>
                                         </Box>
                                     </Box>
                                 </form>
