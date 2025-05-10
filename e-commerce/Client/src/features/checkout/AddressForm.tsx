@@ -55,14 +55,14 @@ export default function AddressForm()
 
             <Grid2 size={{xs: 12}}>
                 <TextField
-                    {...register("addressline", {required: "addressline is required"})}
-                    label="Enter addressline" 
+                    {...register("addressLine", {required: "addressLine is required"})}
+                    label="Enter addressLine" 
                     size="small" 
                     fullWidth 
                     multiline
                     rows={4}
                     sx={{mb: 2}}
-                    error={!!errors.addressline}
+                    error={!!errors.addressLine}
                 ></TextField>
             </Grid2>
 

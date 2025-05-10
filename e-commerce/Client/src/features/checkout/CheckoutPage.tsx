@@ -10,10 +10,17 @@ import requests from "../../api/requests";
 import { useAppDispatch } from "../../store/store";
 import { clearCart } from "../cart/cartSlice";
 import { LoadingButton } from "@mui/lab";
+import { Link } from "react-router";
+
+
 
 
 
 const steps = ["Teslimat Bilgileri", "Ödeme", "Sipariş Özeti"];
+
+const links = [
+  { title: "Orders", to: "/" }
+]
 
 function getStepContent(step: number)
 {
@@ -98,7 +105,7 @@ export default function CheckoutPage()
                                     <Typography variant="body1" sx={{color: "text.secondary"}}>
                                         Sipariş Numaranız <strong>#{orderId}</strong>. Sipariş onaylandığında size bir eposta göndereceğiz.
                                     </Typography>
-                                    <Button sx={{alignSelf: "start", width: {xs: "100%", sm: "auto"}}} variant="contained">Siparişleri Listele</Button>
+                                    <Button sx={{alignSelf: "start", width: {xs: "100%", sm: "auto"}}} variant="contained" component={Link} to="/orders">Siparişleri Listele</Button>
                                 </Stack>
                             ) : (
                                 <form onSubmit={methods.handleSubmit(handleNext)}>

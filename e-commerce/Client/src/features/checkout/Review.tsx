@@ -18,7 +18,7 @@ export default function Review()
                     </Typography>
                     <Typography gutterBottom sx={{color: "text.secondary"}}>{getValues("firstName")} {getValues("lastName")}</Typography>
                     <Typography gutterBottom sx={{color: "text.secondary"}}>{getValues("phone")}</Typography>
-                    <Typography gutterBottom sx={{color: "text.secondary"}}>{getValues("addressline")} / {getValues("city")}</Typography>
+                    <Typography gutterBottom sx={{color: "text.secondary"}}>{getValues("addressLine")} / {getValues("city")}</Typography>
                 </div>
                 <div>
                     <Typography variant="subtitle2" gutterBottom sx={{display: "flex", alignItems: "center", mb:2, color: "text.secondary"}}>
