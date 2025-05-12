@@ -27,6 +27,9 @@ namespace API.Entity
 
         public decimal SubTotal { get; set; }
         public decimal DeliveryFree { get; set; }
+
+        public string? ConservationId { get; set; }
+        public string? BasketId { get; set; }
         public decimal GetTotal()
         {
             return SubTotal + DeliveryFree;
@@ -50,6 +53,8 @@ namespace API.Entity
         public decimal Price { get; set; }
 
         public int Quantity { get; set; }
+
+        
     }
 
     public enum OrderStatus

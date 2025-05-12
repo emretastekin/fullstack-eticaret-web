@@ -104,7 +104,10 @@ namespace API.Controllers
             };
 
             //Payment--Stage
-            await ProcessPayment();
+            var paymentResult = await ProcessPayment(orderDTO, cart);
+
+            order.ConservationId = paymentResult.ConversationId;
+            order.BasketId = paymentResult.BasketId;
 
             _context.Orders.Add(order);
             _context.Carts.Remove(cart);
@@ -119,7 +122,7 @@ namespace API.Controllers
             return BadRequest(new ProblemDetails { Title = "Problem getting order"});
         }
 
-        private async Task<Payment> ProcessPayment()
+        private async Task<Payment> ProcessPayment(CreateOrderDTO model, Cart cart)
         {
             Options options = new Options();
             options.ApiKey = _config["PaymentAPI:APIKey"];
@@ -129,83 +132,68 @@ namespace API.Controllers
                     
             CreatePaymentRequest request = new CreatePaymentRequest();
             request.Locale = Locale.TR.ToString();
-            request.ConversationId = "123456789";
-            request.Price = "1";
-            request.PaidPrice = "1.2";
+            request.ConversationId = Guid.NewGuid().ToString();
+            request.Price = cart.CalculateTotal().ToString();
+            request.PaidPrice = cart.CalculateTotal().ToString();
             request.Currency = Currency.TRY.ToString();
             request.Installment = 1;
-            request.BasketId = "B67832";
+            request.BasketId = Guid.NewGuid().ToString();
             request.PaymentChannel = PaymentChannel.WEB.ToString();
             request.PaymentGroup = PaymentGroup.PRODUCT.ToString();
 
             PaymentCard paymentCard = new PaymentCard();
-            paymentCard.CardHolderName = "John Doe";
-            paymentCard.CardNumber = "5528790000000008";
-            paymentCard.ExpireMonth = "12";
-            paymentCard.ExpireYear = "2030";
-            paymentCard.Cvc = "123";
+            paymentCard.CardHolderName = model.CardName;
+            paymentCard.CardNumber = model.CardNumber;
+            paymentCard.ExpireMonth = model.CardExpireMonth;
+            paymentCard.ExpireYear = model.CardExpireYear;
+            paymentCard.Cvc = model.CardCvc;
             paymentCard.RegisterCard = 0;
             request.PaymentCard = paymentCard;
 
             Buyer buyer = new Buyer();
             buyer.Id = "BY789";
-            buyer.Name = "John";
-            buyer.Surname = "Doe";
-            buyer.GsmNumber = "+905350000000";
+            buyer.Name = model.FirstName;
+            buyer.Surname = model.LastName;
+            buyer.GsmNumber = model.Phone;
             buyer.Email = "email@email.com";
             buyer.IdentityNumber = "74300864791";
             buyer.LastLoginDate = "2015-10-05 12:43:35";
             buyer.RegistrationDate = "2013-04-21 15:12:09";
-            buyer.RegistrationAddress = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1";
+            buyer.RegistrationAddress = model.AddresLine;
             buyer.Ip = "85.34.78.112";
-            buyer.City = "Istanbul";
-            buyer.Country = "Turkey";
+            buyer.City = model.City;
+            buyer.Country = "Türkiye";
             buyer.ZipCode = "34732";
             request.Buyer = buyer;
 
             Address shippingAddress = new Address();
-            shippingAddress.ContactName = "Jane Doe";
-            shippingAddress.City = "Istanbul";
-            shippingAddress.Country = "Turkey";
-            shippingAddress.Description = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1";
+            shippingAddress.ContactName = model.FirstName + " " + model.LastName;
+            shippingAddress.City = model.City;
+            shippingAddress.Country = "Türkiye";
+            shippingAddress.Description = model.AddresLine;
             shippingAddress.ZipCode = "34742";
-            request.ShippingAddress = shippingAddress;
 
-            Address billingAddress = new Address();
-            billingAddress.ContactName = "Jane Doe";
-            billingAddress.City = "Istanbul";
-            billingAddress.Country = "Turkey";
-            billingAddress.Description = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1";
-            billingAddress.ZipCode = "34742";
-            request.BillingAddress = billingAddress;
+
+            request.ShippingAddress = shippingAddress;
+            request.BillingAddress = shippingAddress;
 
             List<BasketItem> basketItems = new List<BasketItem>();
-            BasketItem firstBasketItem = new BasketItem();
-            firstBasketItem.Id = "BI101";
-            firstBasketItem.Name = "Binocular";
-            firstBasketItem.Category1 = "Collectibles";
-            firstBasketItem.Category2 = "Accessories";
-            firstBasketItem.ItemType = BasketItemType.PHYSICAL.ToString();
-            firstBasketItem.Price = "0.3";
-            basketItems.Add(firstBasketItem);
 
-            BasketItem secondBasketItem = new BasketItem();
-            secondBasketItem.Id = "BI102";
-            secondBasketItem.Name = "Game code";
-            secondBasketItem.Category1 = "Game";
-            secondBasketItem.Category2 = "Online Game Items";
-            secondBasketItem.ItemType = BasketItemType.VIRTUAL.ToString();
-            secondBasketItem.Price = "0.5";
-            basketItems.Add(secondBasketItem);
+            foreach(var item in cart.CartItems)
+            {
+                BasketItem basketItem = new BasketItem();
+                basketItem.Id = item.ProductId.ToString();
+                basketItem.Name = item.Product.Name;
+                basketItem.Category1 = "Saat";
+                basketItem.Category2 = "Accessories";
+                basketItem.ItemType = BasketItemType.PHYSICAL.ToString();
+                basketItem.Price = ((double)item.Product.Price * item.Quantity).ToString();
+                basketItems.Add(basketItem);
+            }
 
-            BasketItem thirdBasketItem = new BasketItem();
-            thirdBasketItem.Id = "BI103";
-            thirdBasketItem.Name = "Usb";
-            thirdBasketItem.Category1 = "Electronics";
-            thirdBasketItem.Category2 = "Usb / Cable";
-            thirdBasketItem.ItemType = BasketItemType.PHYSICAL.ToString();
-            thirdBasketItem.Price = "0.2";
-            basketItems.Add(thirdBasketItem);
+
+
+        
             request.BasketItems = basketItems;
 
             return await Payment.Create(request, options);
