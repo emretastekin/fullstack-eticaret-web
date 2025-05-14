@@ -106,6 +106,11 @@ namespace API.Controllers
             //Payment--Stage
             var paymentResult = await ProcessPayment(orderDTO, cart);
 
+            if(paymentResult.Status == "failure")
+            {
+                return BadRequest(new ProblemDetails { Title = paymentResult.ErrorMessage });
+            }
+
             order.ConservationId = paymentResult.ConversationId;
             order.BasketId = paymentResult.BasketId;
 
@@ -137,7 +142,7 @@ namespace API.Controllers
             request.PaidPrice = cart.CalculateTotal().ToString();
             request.Currency = Currency.TRY.ToString();
             request.Installment = 1;
-            request.BasketId = Guid.NewGuid().ToString();
+            request.BasketId = cart.CartId.ToString();
             request.PaymentChannel = PaymentChannel.WEB.ToString();
             request.PaymentGroup = PaymentGroup.PRODUCT.ToString();
 
@@ -159,7 +164,7 @@ namespace API.Controllers
             buyer.IdentityNumber = "74300864791";
             buyer.LastLoginDate = "2015-10-05 12:43:35";
             buyer.RegistrationDate = "2013-04-21 15:12:09";
-            buyer.RegistrationAddress = model.AddresLine;
+            buyer.RegistrationAddress = "sasa";
             buyer.Ip = "85.34.78.112";
             buyer.City = model.City;
             buyer.Country = "Türkiye";
@@ -170,7 +175,7 @@ namespace API.Controllers
             shippingAddress.ContactName = model.FirstName + " " + model.LastName;
             shippingAddress.City = model.City;
             shippingAddress.Country = "Türkiye";
-            shippingAddress.Description = model.AddresLine;
+            shippingAddress.Description = "saas";
             shippingAddress.ZipCode = "34742";
 
 

@@ -33,7 +33,7 @@ export default function PaymentForm()
                 <Grid2 size={{xs: 6, md: 4}}>
                     <TextField
                         {...register("cardexpiremonth", {required: "Expiry month is required"})}
-                        label="Enter expiry date" 
+                        label="Enter expiry month" 
                         size="small" 
                         fullWidth 
                         sx={{mb: 2}}
@@ -44,7 +44,7 @@ export default function PaymentForm()
                 <Grid2 size={{xs: 6, md: 4}}>
                     <TextField
                         {...register("cardexpireyear", {required: "Expiry year is required"})}
-                        label="Enter expiry date" 
+                        label="Enter expiry year" 
                         size="small" 
                         fullWidth 
                         sx={{mb: 2}}
@@ -54,12 +54,12 @@ export default function PaymentForm()
     
                 <Grid2 size={{xs: 12, md: 4}}>
                     <TextField
-                        {...register("cardcvv", {required: "Cvv is required"})}
-                        label="Enter cvv" 
+                        {...register("cardcvc", {required: "Cvc is required"})}
+                        label="Enter cvc" 
                         size="small" 
                         fullWidth 
                         sx={{mb: 2}}
-                        error={!!errors.cardcvv}
+                        error={!!errors.cardcvc}
                     ></TextField>
                 </Grid2>
     
